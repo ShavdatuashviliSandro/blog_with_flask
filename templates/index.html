@@ -63,85 +63,42 @@
 </div>
 
 <div class="main-box d-flex justify-content-between flex-wrap">
+    {% for card in cards%}
     <div class="card" style="width: 18rem;">
         <img class="card-img-top"
              src="https://asb.ge/storage/media/image/2024-01-22/a8c2f890-b920-11ee-82f8-c7596e18b18a.png"
              alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">ძიუდოს უპირატესობებიი</h5>
-            <p class="card-text">ამ სტატიაში თქვენ წაიკითხავთ მოზარდების ძიუდოთი დაინტერესების დადებით თვისებებს.</p>
+            <h5 class="card-title">{{card['title']}}</h5>
+            <p class="card-text">{{ card['description'] }}</p>
             <a href="#" class="btn btn-primary">წაკითხვა</a>
         </div>
     </div>
-
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top"
-             src="https://asb.ge/storage/media/image/2024-01-22/a8c2f890-b920-11ee-82f8-c7596e18b18a.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">ძიუდოს უპირატესობებიი</h5>
-            <p class="card-text">ამ სტატიაში თქვენ წაიკითხავთ მოზარდების ძიუდოთი დაინტერესების დადებით თვისებებს.</p>
-            <a href="#" class="btn btn-primary">წაკითხვა</a>
-        </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top"
-             src="https://asb.ge/storage/media/image/2024-01-22/a8c2f890-b920-11ee-82f8-c7596e18b18a.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">ძიუდოს უპირატესობებიი</h5>
-            <p class="card-text">ამ სტატიაში თქვენ წაიკითხავთ მოზარდების ძიუდოთი დაინტერესების დადებით თვისებებს.</p>
-            <a href="#" class="btn btn-primary">წაკითხვა</a>
-        </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top"
-             src="https://asb.ge/storage/media/image/2024-01-22/a8c2f890-b920-11ee-82f8-c7596e18b18a.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">ძიუდოს უპირატესობები</h5>
-            <p class="card-text">ამ სტატიაში თქვენ წაიკითხავთ მოზარდების ძიუდოთი დაინტერესების დადებით თვისებებს.</p>
-            <a href="#" class="btn btn-primary">წაკითხვა</a>
-        </div>
-    </div>
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top"
-             src="https://asb.ge/storage/media/image/2024-01-22/a8c2f890-b920-11ee-82f8-c7596e18b18a.png"
-             alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">ძიუდოს უპირატესობებიი</h5>
-            <p class="card-text">ამ სტატიაში თქვენ წაიკითხავთ მოზარდების ძიუდოთი დაინტერესების დადებით თვისებებს.</p>
-            <a href="#" class="btn btn-primary">წაკითხვა</a>
-        </div>
-    </div>
+    {% endfor %}
 </div>
 
 <div class="main-box">
     <div class="container mt-4">
-    <h2 class="text-center mb-4">სიახლეები და არქივი</h2>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="p-4 bg-light border rounded shadow-sm text-center hover-effect">
-                <h3 class="fw-bold">ახალი ამბები</h3>
-                <p>ვებგვერდზე მუდმივად იდება თქვენთვის საინტერესო ახალი ამბები.</p>
+        <h2 class="text-center mb-4">სიახლეები და არქივი</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="p-4 bg-light border rounded shadow-sm text-center hover-effect">
+                    <h3 class="fw-bold">ახალი ამბები</h3>
+                    <p>ვებგვერდზე მუდმივად იდება თქვენთვის საინტერესო ახალი ამბები.</p>
+                </div>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="p-4 bg-light border rounded shadow-sm text-center hover-effect">
-                <h3 class="fw-bold">არქივი</h3>
-                <p>ვებგვერდზე თქვენ შეხვდებით არამარტო ახალ ამბებს, არამედ არქივსაც.</p>
+            <div class="col-md-6">
+                <div class="p-4 bg-light border rounded shadow-sm text-center hover-effect">
+                    <h3 class="fw-bold">არქივი</h3>
+                    <p>ვებგვერდზე თქვენ შეხვდებით არამარტო ახალ ამბებს, არამედ არქივსაც.</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </div>
 
-<div style="margin-top: 3%">
-    <footer class="bg-dark text-white text-center py-3">
-        <p class="mb-0">&copy; 2025 MyBlogs.ge - ყველა უფლება დაცულია.</p>
-    </footer>
-</div>
+{% include 'footer.html' %}
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
