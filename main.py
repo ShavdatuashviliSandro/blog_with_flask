@@ -12,9 +12,8 @@ def about_us():
 
 @app.route('/contact')
 def contact():
-    item = [{'id': 1, 'name': 'givi', 'email': 'sandro@gmail.com'},
-            {'id': 2, 'name': 'luka', 'email': 'sandro@gmail.com'}]
+    items = 1
+    return render_template('contact.html', items = items)
 
-    return render_template('contact.html', items = item)
 if __name__ == '__main__':
     app.run(debug=True)
