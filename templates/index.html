@@ -63,14 +63,15 @@
 </div>
 
 <div class="main-box d-flex justify-content-between flex-wrap">
-    {% for card in cards%}
+    {% for item in items%}
     <div class="card" style="width: 18rem;">
         <img class="card-img-top"
              src="https://asb.ge/storage/media/image/2024-01-22/a8c2f890-b920-11ee-82f8-c7596e18b18a.png"
              alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">{{card['title']}}</h5>
-            <p class="card-text">{{ card['description'] }}</p>
+            <h5 class="card-title">{{item['title']}}</h5>
+            <p class="card-text">{{item['description']}}</p>
+            <p class="card-text">ავტორი: {{ item['author'] }}</p>
             <a href="#" class="btn btn-primary">წაკითხვა</a>
         </div>
     </div>

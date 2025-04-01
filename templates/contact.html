@@ -25,17 +25,18 @@
     </style>
 </head>
 <body>
-{% include "header.html" %}
+{% include 'header.html' %}
+
 
 <div class="main-box">
-    {% if names %}
+    {% if names[0] == 'გიორგი' %}
     <ul>
         {% for name in names%}
         <li>{{ name }}</li>
         {% endfor %}
     </ul>
     {%else%}
-    <p>THERE IS NOT users.</p>
+    <p>THERE IS NO users.</p>
     {%endif%}
 </div>
 
