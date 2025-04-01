@@ -14,6 +14,9 @@ items = [
      'description': 'ამ სტატიაში თქვენ წაიკითხავთ მოზარდების ძიუდოთი დაინტერესების დადებით თვისებებს.'},
     {'title': 'მზიურის თანაშრომლები',
      'author': 'გიორგი ბაზუაშვილი',
+     'description': 'ამ სტატიაში თქვენ წაიკითხავთ მსოფლიო რეკორდების შესახებ.'},
+    {'title': 'მზიურის თანაშრომლები',
+     'author': 'გიორგი ბაზუაშვილი',
      'description': 'ამ სტატიაში თქვენ წაიკითხავთ მსოფლიო რეკორდების შესახებ.'}
 ]
 
@@ -23,9 +26,9 @@ def index():
     return render_template('index.html', items=items)
 
 
-@app.route('/add_item/<title>/<description>/<author>')
-def add_item(title, description, author):
-    items.append({'title': title, 'description': description, 'author': author})
+@app.route('/add_item')
+def add_item():
+    items.append({'title': 'რაღაც სათაური', 'description': 'რაღაც აღწერა', 'author': 'ლაშა ჩოხელი'})
     return render_template('index.html', items=items)
 
 
