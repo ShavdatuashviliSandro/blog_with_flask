@@ -72,7 +72,7 @@
     {% for item in items%}
     <div class="card" style="width: 18rem;">
         <img class="card-img-top"
-             src="https://asb.ge/storage/media/image/2024-01-22/a8c2f890-b920-11ee-82f8-c7596e18b18a.png"
+             src={{item['photo_url']}}
              alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">{{item['title']}}</h5>

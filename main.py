@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -26,9 +26,15 @@ def index():
     return render_template('index.html', items=items)
 
 
-@app.route('/add_item')
+@app.route('/add_item', methods=['POST'])
 def add_item():
-    items.append({'title': 'რაღაც სათაური', 'description': 'რაღაც აღწერა', 'author': 'ლაშა ჩოხელი'})
+    photo_url = request.form.get('photo_url')
+    title = request.form.get('title')
+    author = request.form.get('author')
+    description = request.form.get('description')
+
+    # Process and add the item to the list
+    items.append({'photo_url': photo_url, 'title': title, 'author': author, 'description': description})
     return render_template('index.html', items=items)
 
 

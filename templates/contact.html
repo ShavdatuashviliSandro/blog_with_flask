@@ -29,17 +29,35 @@
 
 
 <div class="main-box">
-    {% if names[0] == 'გიორგი' %}
-    <ul>
-        {% for name in names%}
-        <li>{{ name }}</li>
-        {% endfor %}
-    </ul>
-    {%else%}
-    <p>THERE IS NO users.</p>
-    {%endif%}
+    <form method="POST" action="/add_item">
+        <div class="form-group">
+            <label for="exampleFormControlInput1">ფოტოს ლინკი</label>
+            <input type="text" class="form-control" id="exampleFormControlInput0" name="photo_url" placeholder="Enter the title">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Title</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="title" placeholder="Enter the title">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput2">Author</label>
+            <input type="text" class="form-control" id="exampleFormControlInput2" name="author" placeholder="Enter the author's name">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Description</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3" placeholder="Enter the description"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </div>
 
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
