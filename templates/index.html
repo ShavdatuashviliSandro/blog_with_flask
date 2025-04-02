@@ -23,6 +23,12 @@
             margin-top: 2%
         }
 
+        .card-box{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+        }
+
     </style>
 </head>
 <body>
@@ -62,7 +68,7 @@
     <strong>საინტერესო ამბები:</strong>
 </div>
 
-<div class="main-box d-flex justify-content-between flex-wrap">
+<div class="main-box card-box">
     {% for item in items%}
     <div class="card" style="width: 18rem;">
         <img class="card-img-top"
