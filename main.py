@@ -48,8 +48,8 @@ def about_us():
     return render_template('about_us.html')
 
 
-@app.route('/contact')
-def contact():
+@app.route('/posts')
+def posts():
     names = ['გიორგი', 'სანდრო', 'რეზი', 'ერეკლე', 'ლიზი']
     return render_template('contact.html', names=names)
 
