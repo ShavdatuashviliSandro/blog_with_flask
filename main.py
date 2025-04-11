@@ -53,6 +53,5 @@ def contact():
     names = ['გიორგი', 'სანდრო', 'რეზი', 'ერეკლე', 'ლიზი']
     return render_template('contact.html', names=names)
 
-
 if __name__ == '__main__':
     app.run(debug=True)
