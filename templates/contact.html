@@ -29,28 +29,44 @@
 
 
 <div class="main-box">
-    <form method="POST" action="/add_item">
+    <form action="/add_question" method="POST">
         <div class="form-group">
-            <label for="exampleFormControlInput1">ფოტოს ლინკი</label>
-            <input type="text" class="form-control" id="exampleFormControlInput0" name="photo_url" placeholder="Enter the title">
+            <label for="exampleFormControlInput1">სახელი</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" name="name"
+                   placeholder="ჩაწერეთ თქვენი სახელი">
         </div>
         <div class="form-group">
-            <label for="exampleFormControlInput1">სათაური</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" name="title" placeholder="Enter the title">
+            <label for="exampleFormControlInput2">Email:</label>
+            <input type="email" class="form-control" id="exampleFormControlInput2" name="mail"
+                   placeholder="ჩაწერეთ თქვენი მეილი">
         </div>
         <div class="form-group">
-            <label for="exampleFormControlInput2">ავტორი</label>
-            <input type="text" class="form-control" id="exampleFormControlInput2" name="author" placeholder="Enter the author's name">
+            <label for="exampleFormControlTextarea1">კითხვა</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="question" rows="3"
+                      placeholder="მოგვწერეთ კითხვა"></textarea>
         </div>
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">პოსტის აღწერა</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3" placeholder="Enter the description"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">პოსტის შექმნა</button>
+        <button type="submit" class="btn btn-primary">გაგზავნა</button>
     </form>
 </div>
 
 
+<div class="main-box">
+    <div class="accordion" id="faqAccordion">
+        {% for question in questions%}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{question['name']}}
+                <br>
+            </strong> {{question['question']}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>

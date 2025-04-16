@@ -25,22 +25,20 @@ items = [
      'photo_url': 'https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png'}
 ]
 
-
+questions = []
 @app.route('/')
 def index():
     return render_template('index.html', items=items)
 
 
-@app.route('/add_item', methods=['POST'])
-def add_item():
-    photo_url = request.form.get('photo_url')
-    title = request.form.get('title')
-    author = request.form.get('author')
-    description = request.form.get('description')
+@app.route('/add_question', methods=['POST'])
+def add_question():
+    name = request.form.get('name')
+    mail = request.form.get('mail')
+    question = request.form.get('question')
 
-    # Process and add the item to the list
-    items.append({'photo_url': photo_url, 'title': title, 'author': author, 'description': description})
-    return render_template('index.html', items=items)
+    questions.append({'name': name, 'mail': mail, 'question': question})
+    return render_template('contact.html', questions=questions)
 
 
 @app.route('/about_us')
@@ -50,8 +48,7 @@ def about_us():
 
 @app.route('/contact')
 def contact():
-    names = ['გიორგი', 'სანდრო', 'რეზი', 'ერეკლე', 'ლიზი']
-    return render_template('contact.html', names=names)
+    return render_template('contact.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
