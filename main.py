@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import sqlite3
 
 app = Flask(__name__)
 
@@ -25,7 +26,6 @@ items = [
      'photo_url': 'https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png'}
 ]
 
-questions = []
 @app.route('/')
 def index():
     return render_template('index.html', items=items)
@@ -37,7 +37,22 @@ def add_question():
     mail = request.form.get('mail')
     question = request.form.get('question')
 
-    questions.append({'name': name, 'mail': mail, 'question': question})
+    # Create record to database
+    conn = sqlite3.connect('my_blogs.db')
+    c = conn.cursor()
+
+    conn.execute('''
+                 INSERT INTO contacts (name, email, question)
+                 VALUES (?, ?, ?)
+                 ''', (name, mail, question))
+    conn.commit()
+
+    # Read our data
+    c.execute('SELECT name, question FROM contacts')
+    rows = c.fetchall()
+    questions = [{'name': row[0], 'question': row[1]} for row in rows]
+
+    conn.close()
     return render_template('contact.html', questions=questions)
 
 
@@ -48,6 +63,13 @@ def about_us():
 
 @app.route('/contact')
 def contact():
+    conn = sqlite3.connect('my_blogs.db')
+    c = conn.cursor()
+    c.execute('SELECT name, question FROM contacts')
+    rows = c.fetchall()
+    conn.close()
+
+    questions = [{'name': row[0], 'question': row[1]} for row in rows]
     return render_template('contact.html', questions=questions)
 
 if __name__ == '__main__':

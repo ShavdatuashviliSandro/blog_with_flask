@@ -4,11 +4,11 @@ conn = sqlite3.connect('my_blogs.db')
 c = conn.cursor()
 
 conn.execute('''
-            CREATE TABLE IF NOT EXISTS posts (
+            CREATE TABLE IF NOT EXISTS contacts (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT NOT NULL,
-                description TEXT NOT NULL,
-                author TEXT NOT NULL
+                name TEXT NOT NULL,
+                email TEXT NOT NULL,
+                question TEXT NOT NULL
             )
         ''')
 
