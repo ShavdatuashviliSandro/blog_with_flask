@@ -13,7 +13,7 @@ conn.execute('''
             )
         ''')
 
-# დავამატოთ თუ არ არსებობს birthday_time column-ი
+# Add column operation
 try:
     conn.execute('ALTER TABLE users ADD COLUMN birthday_time TEXT')
 except sqlite3.OperationalError:
@@ -31,10 +31,17 @@ conn.execute('''
 ''')
 conn.commit()
 
-# წავშალოთ კონკრეტული იუზერი
+# Delete operation
 conn.execute('''
     DELETE FROM users WHERE id = 1
 ''')
 conn.commit()
+
+# Read operation
+c.execute('SELECT id, username FROM users')
+rows = c.fetchall()
+for row in rows:
+    print(f"ID: {row[0]}, Username: {row[1]}")
+
 
 conn.close()
