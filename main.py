@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 
 app = Flask(__name__)
@@ -26,6 +26,7 @@ items = [
      'photo_url': 'https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png'}
 ]
 
+
 @app.route('/')
 def index():
     return render_template('index.html', items=items)
@@ -46,14 +47,8 @@ def add_question():
                  VALUES (?, ?, ?)
                  ''', (name, mail, question))
     conn.commit()
-
-    # Read our data
-    c.execute('SELECT name, question FROM contacts')
-    rows = c.fetchall()
-    questions = [{'name': row[0], 'question': row[1]} for row in rows]
-
     conn.close()
-    return render_template('contact.html', questions=questions)
+    return render_template('contact.html')
 
 
 @app.route('/about_us')
@@ -63,14 +58,46 @@ def about_us():
 
 @app.route('/contact')
 def contact():
+    return render_template('contact.html')
+
+@app.route('/sign_in', methods=['GET', 'POST'])
+def sign_in():
+    if request.method == 'POST':
+        user_email = request.form.get('email')
+        user_password = request.form.get('password')
+        conn = sqlite3.connect('my_blogs.db')
+        c = conn.cursor()
+        c.execute("SELECT email, password FROM users WHERE email = ?", (user_email,))
+        rows = c.fetchall() # [('sandro@gmail.com', '12341234')]
+        if rows:
+            database_password = rows[0][1]
+
+            if database_password == user_password:
+                return redirect(url_for('admin'))
+        conn.close()
+
+
+    return render_template('sign_in.html')
+
+@app.route('/admin')
+def admin():
+    return render_template('admin.html')
+
+@app.route('/admin_contacts')
+def admin_contacts():
     conn = sqlite3.connect('my_blogs.db')
     c = conn.cursor()
-    c.execute('SELECT name, question FROM contacts')
+    c.execute('SELECT * FROM contacts')
     rows = c.fetchall()
     conn.close()
 
-    questions = [{'name': row[0], 'question': row[1]} for row in rows]
-    return render_template('contact.html', questions=questions)
+    questions = []
+    for row in rows:
+        questions.append({'id': row[0],'name': row[1], 'email': row[2], 'question': row[3]})
+
+    print(questions)
+    return render_template('admin_contacts.html', questions = questions)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

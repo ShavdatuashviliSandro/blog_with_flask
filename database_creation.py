@@ -15,19 +15,19 @@ conn.execute('''
 
 # Add column operation
 try:
-    conn.execute('ALTER TABLE users ADD COLUMN birthday_time TEXT')
+    conn.execute("ALTER TABLE users ADD COLUMN password TEXT NOT NULL DEFAULT ''")
 except sqlite3.OperationalError:
     pass
 
 # Create user
 conn.execute('''
-    INSERT INTO users (username, email, age) VALUES ('Sandro Makatsara', 'sandro@gmail.com', 17)
+    INSERT INTO users (username, email, age) VALUES ('Sandro Shavdatuashvili', 'sandro@gmail.com', 23)
 ''')
 conn.commit()
 
 # Update user
 conn.execute('''
-    UPDATE users SET age = 15 WHERE email = 'sandro@gmail.com'
+    UPDATE users SET password = '12341234' WHERE email = 'sandro@gmail.com'
 ''')
 conn.commit()
 
