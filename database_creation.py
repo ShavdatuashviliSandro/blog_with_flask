@@ -15,7 +15,7 @@ conn.execute('''
 
 # Add column operation
 try:
-    conn.execute("ALTER TABLE users ADD COLUMN password TEXT NOT NULL DEFAULT ''")
+    conn.execute("ALTER TABLE posts ADD COLUMN short_description TEXT NOT NULL DEFAULT ''")
 except sqlite3.OperationalError:
     pass
 

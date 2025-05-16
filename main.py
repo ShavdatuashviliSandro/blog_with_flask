@@ -68,7 +68,8 @@ def sign_in():
         conn = sqlite3.connect('my_blogs.db')
         c = conn.cursor()
         c.execute("SELECT email, password FROM users WHERE email = ?", (user_email,))
-        rows = c.fetchall() # [('sandro@gmail.com', '12341234')]
+        rows = c.fetchall()
+        print(rows)
         if rows:
             database_password = rows[0][1]
 
@@ -83,7 +84,7 @@ def sign_in():
 def admin():
     return render_template('admin.html')
 
-@app.route('/admin_contacts')
+@app.route('/admin/admin_contacts')
 def admin_contacts():
     conn = sqlite3.connect('my_blogs.db')
     c = conn.cursor()
@@ -91,6 +92,7 @@ def admin_contacts():
     rows = c.fetchall()
     conn.close()
 
+    # Convert database records as dictionary
     questions = []
     for row in rows:
         questions.append({'id': row[0],'name': row[1], 'email': row[2], 'question': row[3]})
@@ -98,6 +100,25 @@ def admin_contacts():
     print(questions)
     return render_template('admin_contacts.html', questions = questions)
 
+@app.route('/admin/create_items', methods=['GET', 'POST'])
+def create_items():
+    if request.method == 'POST':
+        title = request.form.get('title')
+        short_description = request.form.get('short_description')
+        description = request.form.get('description')
+        author = request.form.get('author')
+
+        # Create record to database
+        conn = sqlite3.connect('my_blogs.db')
+        c = conn.cursor()
+
+        conn.execute('''
+                     INSERT INTO posts (title, short_description, description, author)
+                     VALUES (?, ?, ?, ?)
+                     ''', (title, short_description, description, author))
+        conn.commit()
+        conn.close()
+    return render_template('create_items.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
