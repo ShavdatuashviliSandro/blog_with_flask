@@ -54,21 +54,28 @@
     </form>
 </div>
 
-
-<div class="main-box">
-    <div class="accordion" id="faqAccordion">
-        {% for question in questions%}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>{{question['name']}}
-                <br>
-            </strong> {{question['question']}}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        {% endfor %}
-    </div>
-</div>
+<table class="table main-box">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">სათაური</th>
+        <th scope="col">მოკლე აღწერა</th>
+        <th scope="col">აღწერა</th>
+        <th scope="col">ავტორი</th>
+    </tr>
+    </thead>
+    <tbody>
+    {%for post in posts%}
+    <tr>
+        <th scope="row">{{post['id']}}</th>
+        <td>{{post['title']}}}</td>
+        <td>{{post['short_description']}}}</td>
+        <td>{{post['description']}}}</td>
+        <td>{{post['author']}}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
 <br>
 <br>
 <br>

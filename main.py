@@ -102,23 +102,28 @@ def admin_contacts():
 
 @app.route('/admin/create_items', methods=['GET', 'POST'])
 def create_items():
+    conn = sqlite3.connect('my_blogs.db')
     if request.method == 'POST':
         title = request.form.get('title')
         short_description = request.form.get('short_description')
         description = request.form.get('description')
         author = request.form.get('author')
 
-        # Create record to database
-        conn = sqlite3.connect('my_blogs.db')
-        c = conn.cursor()
-
         conn.execute('''
                      INSERT INTO posts (title, short_description, description, author)
                      VALUES (?, ?, ?, ?)
                      ''', (title, short_description, description, author))
         conn.commit()
-        conn.close()
-    return render_template('create_items.html')
+
+    posts = []
+    c = conn.cursor()
+    c.execute("SELECT * FROM posts")
+    rows = c.fetchall()
+    conn.close()
+    for row in rows:
+        posts.append(
+            {'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
+    return render_template('create_items.html', posts = posts)
 
 if __name__ == '__main__':
     app.run(debug=True)
