@@ -60,6 +60,7 @@ def about_us():
 def contact():
     return render_template('contact.html')
 
+
 @app.route('/sign_in', methods=['GET', 'POST'])
 def sign_in():
     if request.method == 'POST':
@@ -77,12 +78,13 @@ def sign_in():
                 return redirect(url_for('admin'))
         conn.close()
 
-
     return render_template('sign_in.html')
+
 
 @app.route('/admin')
 def admin():
     return render_template('admin.html')
+
 
 @app.route('/admin/admin_contacts')
 def admin_contacts():
@@ -95,10 +97,11 @@ def admin_contacts():
     # Convert database records as dictionary
     questions = []
     for row in rows:
-        questions.append({'id': row[0],'name': row[1], 'email': row[2], 'question': row[3]})
+        questions.append({'id': row[0], 'name': row[1], 'email': row[2], 'question': row[3]})
 
     print(questions)
-    return render_template('admin_contacts.html', questions = questions)
+    return render_template('admin_contacts.html', questions=questions)
+
 
 @app.route('/admin/create_items', methods=['GET', 'POST'])
 def create_items():
@@ -123,7 +126,8 @@ def create_items():
     for row in rows:
         posts.append(
             {'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
-    return render_template('create_items.html', posts = posts)
+    return render_template('create_items.html', posts=posts)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
