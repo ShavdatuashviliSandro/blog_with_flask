@@ -60,6 +60,20 @@ def about_us():
 def contact():
     return render_template('contact.html')
 
+@app.route('/posts')
+def posts():
+    main_posts = []
+    conn = sqlite3.connect('my_blogs.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM posts")
+    rows = c.fetchall()
+
+    for row in rows:
+        main_posts.append(
+            {'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
+
+    return render_template('posts.html', posts = main_posts)
+
 
 @app.route('/sign_in', methods=['GET', 'POST'])
 def sign_in():
@@ -123,9 +137,11 @@ def create_items():
     c.execute("SELECT * FROM posts")
     rows = c.fetchall()
     conn.close()
+    print(rows)
     for row in rows:
         posts.append(
             {'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
+    print(posts)
     return render_template('create_items.html', posts=posts)
 
 
