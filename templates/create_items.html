@@ -29,6 +29,8 @@
 
 
 <div class="main-box">
+    <h3>დაამატეთ პოსტი</h3>
+    <br>
     <form action={{url_for('create_items')}} method="POST">
         <div class="form-group">
             <label for="exampleFormControlInput1">სათაური</label>
@@ -54,6 +56,11 @@
     </form>
 </div>
 
+<br>
+<div class="main-box">
+    <h3>არსებული პოსტები</h3>
+</div>
+
 <table class="table main-box">
     <thead>
     <tr>
@@ -72,6 +79,11 @@
         <td>{{post['short_description']}}</td>
         <td>{{post['description']}}</td>
         <td>{{post['author']}}</td>
+        <td>
+            <a href="{{ url_for('delete_item', id=post['id']) }}">
+                <img width="20px" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png" alt="delete">
+            </a>
+        </td>
     </tr>
     {% endfor %}
     </tbody>

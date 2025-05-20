@@ -9,7 +9,7 @@ def index():
     items = []
     conn = sqlite3.connect('my_blogs.db')
     c = conn.cursor()
-    c.execute("SELECT * FROM posts ORDER BY id DESC")
+    c.execute("SELECT * FROM posts ORDER BY id DESC LIMIT 5")
     rows = c.fetchall()
     print(rows)
 
@@ -123,13 +123,34 @@ def create_items():
     c.execute("SELECT * FROM posts")
     rows = c.fetchall()
     conn.close()
-    print(rows)
 
     # Convert tuples as dictionaries
     for row in rows:
         posts.append({'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
-    print(posts)
+
     return render_template('create_items.html', posts=posts)
+
+@app.route('/admin/delete_item/<int:id>')
+def delete_item(id):
+    conn = sqlite3.connect('my_blogs.db')
+    conn.execute('''
+        DELETE FROM posts WHERE id = ?
+    ''', (id,))
+    conn.commit()
+
+    posts = []
+    c = conn.cursor()
+    c.execute("SELECT * FROM posts")
+    rows = c.fetchall()
+    conn.close()
+
+    # Convert tuples as dictionaries
+    for row in rows:
+        posts.append(
+            {'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
+    conn.close()
+
+    return render_template('create_items.html', posts = posts)
 
 
 if __name__ == '__main__':
