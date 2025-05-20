@@ -3,32 +3,19 @@ import sqlite3
 
 app = Flask(__name__)
 
-items = [
-    {'title': 'ქართველი ჩემპიონები',
-     'author': 'ლაშა ბახია',
-     'description': 'ამ სტატიაში თქვენ წაიკითხავთ მოზარდების ძიუდოთი დაინტერესების დადებით თვისებებს.',
-     'photo_url': 'https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png'},
-    {'title': 'მსოფლიო რეკორდები',
-     'author': 'ლაშა ჩოხელი',
-     'description': 'ამ სტატიაში თქვენ წაიკითხავთ მსოფლიო რეკორდების შესახებ.',
-     'photo_url': 'https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png'},
-    {'title': 'ქართველი ჩემპიონები',
-     'author': 'მარიამ კობერიძე',
-     'description': 'ამ სტატიაში თქვენ წაიკითხავთ მოზარდების ძიუდოთი დაინტერესების დადებით თვისებებს.',
-     'photo_url': 'https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png'},
-    {'title': 'მზიურის თანაშრომლები',
-     'author': 'გიორგი ბაზუაშვილი',
-     'description': 'ამ სტატიაში თქვენ წაიკითხავთ მსოფლიო რეკორდების შესახებ.',
-     'photo_url': 'https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png'},
-    {'title': 'მზიურის თანაშრომლები',
-     'author': 'გიორგი ბაზუაშვილი',
-     'description': 'ამ სტატიაში თქვენ წაიკითხავთ მსოფლიო რეკორდების შესახებ.',
-     'photo_url': 'https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png'}
-]
-
 
 @app.route('/')
 def index():
+    items = []
+    conn = sqlite3.connect('my_blogs.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM posts ORDER BY id DESC")
+    rows = c.fetchall()
+    print(rows)
+
+    for row in rows:
+        items.append({'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
+
     return render_template('index.html', items=items)
 
 
@@ -40,7 +27,6 @@ def add_question():
 
     # Create record to database
     conn = sqlite3.connect('my_blogs.db')
-    c = conn.cursor()
 
     conn.execute('''
                  INSERT INTO contacts (name, email, question)
@@ -138,9 +124,10 @@ def create_items():
     rows = c.fetchall()
     conn.close()
     print(rows)
+
+    # Convert tuples as dictionaries
     for row in rows:
-        posts.append(
-            {'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
+        posts.append({'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
     print(posts)
     return render_template('create_items.html', posts=posts)
 
