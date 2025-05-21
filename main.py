@@ -11,8 +11,8 @@ def index():
     c = conn.cursor()
     c.execute("SELECT * FROM posts ORDER BY id DESC LIMIT 5")
     rows = c.fetchall()
-    print(rows)
 
+    # Convert tuples to dictionaries
     for row in rows:
         items.append({'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
 
@@ -54,6 +54,7 @@ def posts():
     c.execute("SELECT * FROM posts")
     rows = c.fetchall()
 
+    # Convert tuples to dictionaries
     for row in rows:
         main_posts.append(
             {'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
