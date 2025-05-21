@@ -51,7 +51,13 @@ def posts():
     main_posts = []
     conn = sqlite3.connect('my_blogs.db')
     c = conn.cursor()
-    c.execute("SELECT * FROM posts")
+    search = request.args.get('search-value')
+    print(search)
+    if search:
+        c.execute("SELECT * FROM posts WHERE title LIKE ?", ('%' + search + '%',))
+    else:
+        c.execute("SELECT * FROM posts")
+
     rows = c.fetchall()
 
     # Convert tuples to dictionaries
