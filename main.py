@@ -146,21 +146,39 @@ def delete_item(id):
         DELETE FROM posts WHERE id = ?
     ''', (id,))
     conn.commit()
+    conn.close()
 
+    return redirect(url_for('create_items'))
+
+@app.route('/admin/update_item/<int:id>', methods=['GET', 'POST'])
+def update_item(id):
     posts = []
-    c = conn.cursor()
-    c.execute("SELECT * FROM posts")
-    rows = c.fetchall()
-    conn.close()
+    conn = sqlite3.connect('my_blogs.db')
 
-    # Convert tuples as dictionaries
-    for row in rows:
-        posts.append(
-            {'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
-    conn.close()
+    if request.method == 'GET':
+        c = conn.cursor()
+        c.execute(''' SELECT * FROM posts WHERE id = ? ''', (id,))
+        rows = c.fetchall()
+        conn.close()
 
-    return render_template('create_items.html', posts = posts)
+        # Convert tuples as dictionaries
+        for row in rows:
+            posts.append(
+                {'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
 
+        return render_template('update_item.html', post = posts[0])
+    else:
+        title = request.form.get('title')
+        short_description = request.form.get('short_description')
+        description = request.form.get('description')
+        author = request.form.get('author')
+
+        conn.execute(''' UPDATE posts SET title = ?, short_description = ?, description = ?, author = ? WHERE id = ? ''',
+                     (title, short_description, description, author, id))
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for('create_items'))
 
 if __name__ == '__main__':
     app.run(debug=True)

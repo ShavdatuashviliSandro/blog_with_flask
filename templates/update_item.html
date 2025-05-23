@@ -29,70 +29,33 @@
 
 
 <div class="main-box">
-    <h3>დაამატეთ პოსტი</h3>
+    <h3>პოსტის რედაქტირება</h3>
     <br>
-    <form action={{url_for('create_items')}} method="POST">
+    <form action={{url_for('update_item', id=post['id'])}} method="POST">
         <div class="form-group">
             <label for="exampleFormControlInput1">სათაური</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" name="title"
-                   placeholder="ჩაწერეთ პოსტის სათაური" required>
+                   placeholder="ჩაწერეთ პოსტის სათაური" value="{{post['title']}}" required>
         </div>
         <div class="form-group">
             <label for="exampleFormControlInput2">მოკლე აღწერა</label>
             <input type="text" class="form-control" id="exampleFormControlInput2" name="short_description"
-                   placeholder="ჩაწერეთ მოკლე აღწერა" required>
+                   placeholder="ჩაწერეთ მოკლე აღწერა" value="{{post['short_description']}}" required>
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1">აღწერა</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"
-                      placeholder="ჩაწერეთ პოსტის აღწერა" required></textarea>
+                      placeholder="ჩაწერეთ პოსტის აღწერა" name required>{{post['description']}}</textarea>
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1">ავტორი</label>
             <textarea class="form-control" id="exampleFormControlTextarea2" name="author" rows="3"
-                      placeholder="დაწერეთ ავტორი" required></textarea>
+                      placeholder="დაწერეთ ავტორი" required>{{post['author']}}</textarea>
         </div>
-        <button type="submit" class="btn btn-success">პოსტის დამატება</button>
+        <button type="submit" class="btn btn-success">რედაქტირება</button>
     </form>
 </div>
 
-<br>
-<div class="main-box">
-    <h3>არსებული პოსტები</h3>
-</div>
-
-<table class="table main-box">
-    <thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">სათაური</th>
-        <th scope="col">მოკლე აღწერა</th>
-        <th scope="col">აღწერა</th>
-        <th scope="col">ავტორი</th>
-    </tr>
-    </thead>
-    <tbody>
-    {%for post in posts%}
-    <tr>
-        <th scope="row">{{post['id']}}</th>
-        <td>{{post['title']}}</td>
-        <td>{{post['short_description']}}</td>
-        <td>{{post['description']}}</td>
-        <td>{{post['author']}}</td>
-        <td>
-            <a href="{{ url_for('delete_item', id=post['id']) }}">
-                <img width="20px" src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png" alt="delete">
-            </a>
-        </td>
-        <td>
-            <a href="{{ url_for('update_item', id=post['id']) }}">
-                <img width="20px" src="https://www.svgrepo.com/show/42233/pencil-edit-button.svg" alt="delete">
-            </a>
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
 <br>
 <br>
 <br>
