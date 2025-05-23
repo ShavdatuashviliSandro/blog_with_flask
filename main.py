@@ -51,6 +51,8 @@ def posts():
     main_posts = []
     conn = sqlite3.connect('my_blogs.db')
     c = conn.cursor()
+
+    # თუ არსებობს სერჩიდან გამოგზავნილი პარამეტრი მოძებნოს მსგავსი title-ით პოსტები, სხვა შემთხვევაში წამოიღოს ყველა პოსტი.
     search = request.args.get('search-value')
     print(search)
     if search:
