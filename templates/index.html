@@ -78,7 +78,7 @@
             <h5 class="card-title">{{item['title']}}</h5>
             <p class="card-text">{{item['description']}}</p>
             <p class="card-text">ავტორი: {{ item['author'] }}</p>
-            <a href="#" class="btn btn-primary">წაკითხვა</a>
+            <a href="{{url_for('show_post', id=item['id'])}}" class="btn btn-primary">წაკითხვა</a>
         </div>
     </div>
     {% endfor %}

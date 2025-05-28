@@ -180,5 +180,19 @@ def update_item(id):
 
         return redirect(url_for('create_items'))
 
+@app.route('/posts/<int:id>')
+def show_post(id):
+    post = []
+
+    conn = sqlite3.connect('my_blogs.db')
+    c = conn.cursor()
+    c.execute(''' SELECT * FROM posts WHERE id = ? ''', (id,))
+    rows = c.fetchall()
+
+    for row in rows:
+        post.append(
+            {'id': row[0], 'title': row[1], 'description': row[2], 'author': row[3], 'short_description': row[4]})
+    return render_template('show_post.html', post = post[0])
+
 if __name__ == '__main__':
     app.run(debug=True)
