@@ -45,13 +45,16 @@
         <div class="form-group">
             <label for="exampleFormControlTextarea1">აღწერა</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="3"
-                      placeholder="ჩაწერეთ პოსტის აღწერა" name required>{{post['description']}}</textarea>
+                      placeholder="ჩაწერეთ პოსტის აღწერა" required>{{post['description']}}</textarea>
         </div>
         <div class="form-group">
             <label for="exampleFormControlTextarea1">ავტორი</label>
             <textarea class="form-control" id="exampleFormControlTextarea2" name="author" rows="3"
                       placeholder="დაწერეთ ავტორი" required>{{post['author']}}</textarea>
         </div>
+        <a href="/admin/create_items">
+            <button class="btn btn-warning">უკან დაბრუნება</button>
+        </a>
         <button type="submit" class="btn btn-success">რედაქტირება</button>
     </form>
 </div>
