@@ -68,17 +68,21 @@
     <strong>ბოლოს დამატებული პოსტები:</strong>
 </div>
 
-<div class="main-box card-box">
-    {% for item in items%}
+<div class="main-box card-box d-flex flex-wrap gap-3">
+    {% for item in items %}
     <div class="card" style="width: 18rem;">
         <img class="card-img-top"
-             src='https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png'
+             src="https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png"
              alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">{{item['title']}}</h5>
-            <p class="card-text">{{item['description'][:100]}}...</p>
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ item['title'] }}</h5>
+            <p class="card-text">{{ item['description'][:100] }}...</p>
             <p class="card-text">ავტორი: {{ item['author'] }}</p>
-            <a href="{{url_for('show_post', id=item['id'])}}" class="btn btn-primary">წაკითხვა</a>
+
+            <!-- This grows to push button down -->
+            <div class="flex-grow-1"></div>
+
+            <a href="{{ url_for('show_post', id=item['id']) }}" class="btn btn-primary">წაკითხვა</a>
         </div>
     </div>
     {% endfor %}

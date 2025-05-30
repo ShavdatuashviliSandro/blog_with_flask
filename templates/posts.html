@@ -33,16 +33,20 @@
 </head>
 <body>
 {% include "header.html" %}
-<div class="main-box card-box">
-    {% for post in posts%}
+<div class="main-box card-box d-flex flex-wrap gap-3">
+    {% for post in posts %}
     <div class="card" style="width: 18rem;">
         <img class="card-img-top"
-             src='https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png'
+             src="https://foundr.com/wp-content/uploads/2021/09/Best-online-course-platforms.png"
              alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">{{post['title']}}</h5>
-            <p class="card-text">{{post['description']}}</p>
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ post['title'] }}</h5>
+            <p class="card-text">{{ post['description'][:100] }}...</p>
             <p class="card-text">ავტორი: {{ post['author'] }}</p>
+
+            <!-- This grows to push button down -->
+            <div class="flex-grow-1"></div>
+
             <a href="{{ url_for('show_post', id=post['id']) }}" class="btn btn-primary">წაკითხვა</a>
         </div>
     </div>
