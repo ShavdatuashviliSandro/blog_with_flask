@@ -33,6 +33,9 @@
 </head>
 <body>
 {% include "header.html" %}
+
+<h2 class="text-center my-4">ყველა სტატია</h2>
+
 <div class="main-box card-box d-flex flex-wrap gap-3">
     {% for post in posts %}
     <div class="card" style="width: 18rem;">
@@ -53,6 +56,7 @@
     {% endfor %}
 </div>
 
+<br><br><br><br><br><br>
 {% include 'footer.html' %}
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

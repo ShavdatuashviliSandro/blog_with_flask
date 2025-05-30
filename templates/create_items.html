@@ -79,7 +79,7 @@
         <th scope="row">{{post['id']}}</th>
         <td>{{post['title']}}</td>
         <td>{{post['short_description']}}</td>
-        <td>{{post['description']}}</td>
+        <td>{{post['description'][:200]}}</td>
         <td>{{post['author']}}</td>
         <td>
             <a href="{{ url_for('delete_item', id=post['id']) }}">
