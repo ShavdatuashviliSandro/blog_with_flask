@@ -95,7 +95,7 @@ def sign_in():
 
 @app.route('/logout')
 def logout():
-    session.pop('user', None)
+    del session['user']
     return redirect(url_for('sign_in'))
 
 @app.route('/admin')
