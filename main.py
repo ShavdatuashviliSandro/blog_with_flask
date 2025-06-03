@@ -79,15 +79,17 @@ def sign_in():
         user_password = request.form.get('password')
         conn = sqlite3.connect('my_blogs.db')
         c = conn.cursor()
-        c.execute("SELECT email, password FROM users WHERE email = ?", (user_email,))
+        c.execute("SELECT email, password, username FROM users WHERE email = ?", (user_email,))
         rows = c.fetchall()
         print(rows)
         if rows:
             database_password = rows[0][1]
+            user_name = rows[0][2]
 
             if database_password == user_password:
                 session.permanent = True
                 session['user'] = user_email
+                session['user_name'] = user_name
                 return redirect(url_for('admin'))
         conn.close()
 
@@ -96,13 +98,14 @@ def sign_in():
 @app.route('/logout')
 def logout():
     del session['user']
+    del session['user_name']
     return redirect(url_for('sign_in'))
 
 @app.route('/admin')
 def admin():
     print(session)
     if 'user' in session:
-        return render_template('admin.html', user=session['user'])
+        return render_template('admin.html', user=session['user_name'])
     else:
         return redirect(url_for('sign_in'))
 
