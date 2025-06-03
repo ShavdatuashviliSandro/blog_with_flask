@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import sqlite3
+from datetime import timedelta
 
 app = Flask(__name__)
-
+app.secret_key = 'your_secret_key_here'
+app.permanent_session_lifetime = timedelta(minutes=10)
 
 @app.route('/')
 def index():
@@ -84,15 +86,25 @@ def sign_in():
             database_password = rows[0][1]
 
             if database_password == user_password:
+                session.permanent = True
+                session['user'] = user_email
                 return redirect(url_for('admin'))
         conn.close()
 
     return render_template('sign_in.html')
 
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('sign_in'))
 
 @app.route('/admin')
 def admin():
-    return render_template('admin.html')
+    print(session)
+    if 'user' in session:
+        return render_template('admin.html', user=session['user'])
+    else:
+        return redirect(url_for('sign_in'))
 
 
 @app.route('/admin/admin_contacts')
