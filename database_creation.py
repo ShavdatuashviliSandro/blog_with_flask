@@ -19,6 +19,11 @@ try:
 except sqlite3.OperationalError:
     pass
 
+try:
+    conn.execute("ALTER TABLE users ADD COLUMN password TEXT NOT NULL DEFAULT ''")
+except sqlite3.OperationalError:
+    pass
+
 # Create user
 conn.execute('''
     INSERT INTO users (username, email, age) VALUES ('Sandro Shavdatuashvili', 'sandro@gmail.com', 23)
